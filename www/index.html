@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self' data: https://ssl.gstatic.com https://fonts.gstatic.com https://cdn.jsdelivr.net https://fonts.googleapis.com 'unsafe-eval'; 
+             script-src 'self' 'unsafe-inline'; 
+             connect-src *; 
+             style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; 
+             media-src *; 
+             img-src 'self' data: content:;">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <title>Materialize 2025</title>
+    <!-- Fonts Google -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!-- CSS materialize -->
+    <link rel="stylesheet" href="css/materialize.min.css" />
+    <!-- alias de carpeta js-->
+    <alias name="js" href="/www/js" />
+</head>
+
+<body>
+    <nav> <!-- navbar content here  --> </nav>
+    <ul id="slide-out" class="sidenav">
+        <li>
+            <div class="user-view">
+                <div class="background"></div>
+                <a href="#user"></a>
+                <a href="#name"><span class="white-text name">John Doe</span></a>
+                <a href="#email"><span class="white-text email">jdoe@example.com</span></a>
+            </div>
+        </li>
+        <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+        <li><a href="#!">Second Link</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a class="subheader">Subheader</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+    </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+    <!-- AQUI VAN ELS CONTINGUTS -->
+
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs tabs-fixed-width tab-demo tabs-horizontal z-depth-1">
+                <li class="tab"><a href="#image-test1"><i class="material-icons">flight</i>Flight</a></li>
+                <li class="tab"><a class="active" href="#image-test2"><i class="material-icons">music_note</i>Bands</a>
+                </li>
+                <li class="tab"><a href="#image-test3"><i class="material-icons">explore</i>Explore</a></li>
+            </ul>
+            <div id="image-test1" class="col s12">
+                <p>Flight</p>
+            </div>
+            <div id="image-test2" class="col s12">
+                <!-- Botón para cargar bandas -->
+                <a id="btnBands" class="btn waves-effect">Load Bands</a>
+                <!-- Lista donde aparecerán las bandas -->
+                <ul id="bandsList" class="collection" style="margin-top:20px;"></ul>
+            </div>
+            <div id="image-test3" class="col s12">
+                <p>Explore</p>
+            </div>
+        </div>
+
+        <!-- cordova lib
+        <script src="cordova.js"></script>-->
+        <!-- Compiled and minified JavaScript -->
+        <script src="js/materialize.min.js"></script>
+        <!-- init -->
+        <script src="js/index.js"></script>
+        <script>
+           document.addEventListener('DOMContentLoaded', function () {
+    M.Sidenav.init(document.querySelectorAll('.sidenav'));
+    M.Tabs.init(document.querySelectorAll('.tabs'));
+
+    const btnBands = document.getElementById("btnBands");
+    const bandsList = document.getElementById("bandsList");
+
+    // Datos mock (simulan la respuesta de MusicBrainz)
+    const mockData = {
+        artists: [
+            { name: "Queen", disambiguation: "British rock band" },
+            { name: "Queen + Adam Lambert", disambiguation: "Live project" },
+            { name: "Queen Latifah", disambiguation: "Rapper/singer" },
+            { name: "Queenadreena", disambiguation: "Alternative rock band" },
+            { name: "Queenadreena Tribute", disambiguation: "Tribute band" },
+        ]
+    };
+
+    btnBands.addEventListener("click", () => {
+        bandsList.innerHTML = "<li class='collection-item'>Loading...</li>";
+
+        setTimeout(() => { // simula la latencia de la API
+            bandsList.innerHTML = "";
+            mockData.artists.forEach(artist => {
+                const li = document.createElement("li");
+                li.classList.add("collection-item");
+                li.innerHTML = `<strong>${artist.name}</strong> (${artist.disambiguation || 'Unknown'})`;
+                bandsList.appendChild(li);
+            });
+        }, 500);
+    });
+});
+</script>
+</body>
+
+</html>
